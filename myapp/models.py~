@@ -1,0 +1,29 @@
+from django.db import models
+
+class Continent(models.Model):
+    name = models.CharField(max_length=255, unique=True)
+    code = models.CharField(max_length=2, unique=True,     primary_key=False)
+
+    class Meta:
+        ordering = ["name"]
+
+
+class Country(models.Model):
+    name = models.CharField(max_length=255, unique=True)
+    capital = models.CharField(max_length=255)
+    code = models.CharField(max_length=2, unique=True, primary_key=False)
+    continent = models.ForeignKey('Continent', related_name='countries')
+    population = models.PositiveIntegerField()
+    area = PositiveIntegerField()
+    
+	class Meta:
+	    ordering = ["name"]
+
+
+
+def test():
+    c = Continent.objects.get(id=1)
+    for country in c.countries.all():
+        print(c.name)
+
+
